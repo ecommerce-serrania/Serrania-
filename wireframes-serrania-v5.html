@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Serranía · Sistema y wireframes v5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F4F0;--card:#FFF;--ink:#16191A;--ink-2:#5B6163;--ink-3:#8D9294;
+  --teal:#003744;--teal-soft:#E2EBED;--sand:#B08D3F;--sand-soft:#F5EEDD;
+  --ph:#E4E3DD;--ph-2:#D6D5CE;--line:#D8D7D1;
+  --crit:#9B3226;--crit-soft:#F7E9E6;--ok:#2C5233;--ok-soft:#E6EFE7;
+  --pf:#4A3468;--pf-soft:#EDE7F4;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+.mast{padding:60px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin:0 0 14px}
+h1{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(30px,4.6vw,46px);line-height:1.08;margin:0 0 14px;letter-spacing:-.015em}
+.lede{max-width:66ch;color:var(--ink-2);margin:0 0 20px;font-size:16.5px}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.04em;padding:4px 9px;border-radius:3px;white-space:nowrap}
+.v-set{background:var(--ok-soft);color:var(--ok)}
+.v-ella{background:var(--teal-soft);color:var(--teal)}
+.v-cont{background:var(--sand-soft);color:#6B5417}
+.v-app{background:#EAEEF5;color:#2B4A73}
+.v-pf{background:var(--pf-soft);color:var(--pf)}
+.v-css{background:#F0EDE6;color:#6B5A2E}
+.v-crit{background:var(--crit-soft);color:var(--crit)}
+
+.screen{padding:52px 0;border-bottom:1px solid var(--line)}
+.screen:last-of-type{border-bottom:0}
+.shead{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:4px}
+.snum{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);letter-spacing:.1em}
+h2{font-family:'Playfair Display',serif;font-weight:400;font-size:28px;margin:0;letter-spacing:-.012em}
+h3{font-weight:600;font-size:13.5px;margin:28px 0 10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2)}
+.sdek{max-width:66ch;color:var(--ink-2);margin:9px 0 24px}
+
+.cols{display:grid;grid-template-columns:366px minmax(0,1fr);gap:36px;align-items:start}
+@media(max-width:880px){.cols{grid-template-columns:1fr;gap:24px}}
+.phone{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:8px;position:sticky;top:20px}
+@media(max-width:880px){.phone{position:static}}
+.phone-in{border-radius:14px;overflow:hidden;background:#fff;border:1px solid #ECEBE6}
+.desk{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:8px}
+.desk .phone-in{border-radius:5px}
+
+.blk{border-bottom:1px solid #EDECE7;padding:10px 11px;position:relative}
+.blk:last-child{border-bottom:0}
+.bnum{position:absolute;left:-1px;top:10px;width:18px;height:18px;border-radius:0 3px 3px 0;background:var(--teal);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:9.5px;display:flex;align-items:center;justify-content:center}
+.bnum.n{background:var(--sand)}.bnum.p{background:var(--pf)}
+.bl{padding-left:15px}
+.lab{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin:0 0 5px}
+.hk{font-family:'Playfair Display',serif;font-size:13px;color:var(--teal);margin:0 0 6px;line-height:1.22}
+.ph{background:var(--ph);border-radius:3px}
+.ph-d{background:var(--ph-2);border-radius:3px}
+.txt{height:6.5px;background:var(--ph);border-radius:2px;margin:4px 0}
+.txt.w40{width:40%}.txt.w55{width:55%}.txt.w70{width:70%}.txt.w85{width:85%}
+.btn{background:var(--teal);color:#fff;border-radius:5px;text-align:center;padding:7px;font-size:10.5px;font-weight:500}
+.btn.ghost{background:#fff;color:var(--teal);border:1px solid var(--teal)}
+.btn.sand{background:var(--sand);color:#fff}
+.btn.dark{background:#16191A;color:#fff}
+.row{display:flex;gap:6px}.row>*{flex:1;min-width:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.chip{border:1px solid var(--line);border-radius:11px;padding:3px 8px;font-size:9.5px;color:var(--ink-2);white-space:nowrap}
+.chip.on{border-color:var(--teal);background:var(--teal);color:#fff}
+.chip.off{color:var(--ink-3);text-decoration:line-through}
+.badge{background:var(--teal);color:#fff;border-radius:2px;padding:2px 6px;font-size:8.5px;display:inline-block}
+.badge.s{background:var(--sand)}
+.sw{display:flex;gap:4px;margin-top:4px}
+.sw i{width:10px;height:10px;border-radius:50%;background:var(--ph-2);display:block}
+.mini{font-size:10px;color:var(--ink-2);line-height:1.5;margin:2px 0}
+.strip{background:var(--teal);color:#fff;font-size:9px;text-align:center;padding:5px 8px}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-bottom:1px solid #EDECE7}
+.sticky-bar{background:#FAF9F6;border-top:1px solid var(--line)}
+.acc{border:1px solid #EDECE7;border-radius:4px;padding:6px 8px;margin-bottom:5px}
+.field{background:#fff;border:1px solid var(--line);border-radius:4px;height:22px}
+
+.notes{display:flex;flex-direction:column}
+.note{display:grid;grid-template-columns:25px minmax(0,1fr);gap:13px;padding:12px 0;border-bottom:1px solid var(--line)}
+.note:last-child{border-bottom:0}
+.nnum{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#fff;background:var(--teal);width:20px;height:20px;border-radius:3px;display:flex;align-items:center;justify-content:center;margin-top:3px}
+.nnum.n{background:var(--sand)}.nnum.p{background:var(--pf)}
+.nt{margin:0 0 4px;font-weight:600;font-size:14.5px;display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+.nb{margin:0 0 5px;color:var(--ink-2);font-size:14px}
+.nb:last-child{margin-bottom:0}
+.nb code{font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:#EBEAE4;padding:1px 5px;border-radius:3px}
+.hook{background:#fff;border:1px solid var(--line);border-left:3px solid var(--sand);border-radius:0 4px 4px 0;padding:8px 12px;margin:7px 0}
+.hook span{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:3px}
+.hook p{margin:0;font-family:'Playfair Display',serif;font-size:16px;color:var(--teal);line-height:1.28}
+.hook em{font-family:'Inter',sans-serif;font-style:normal;font-size:13px;color:var(--ink-2);display:block;margin-top:3px}
+.resp{font-size:13px;color:var(--ink-3);border-left:2px solid var(--line);padding-left:11px;margin:6px 0 0}
+.resp b{color:var(--ink-2);font-weight:500}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 8px}
+th{text-align:left;font-weight:600;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);padding:0 10px 8px 0;border-bottom:1px solid var(--line)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid #E7E6E0;vertical-align:top;color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:500}
+.tblwrap{overflow-x:auto}
+
+.callout{background:var(--crit-soft);border-left:3px solid var(--crit);padding:14px 17px;margin:20px 0;border-radius:0 4px 4px 0}
+.callout p{margin:0 0 7px;font-size:14px;color:#5F2018}
+.callout p:last-child{margin:0}
+.callout strong{color:var(--crit)}
+.note-box{background:#fff;border:1px solid var(--line);border-radius:6px;padding:15px 18px;margin:18px 0}
+.note-box p{margin:0 0 8px;font-size:14px;color:var(--ink-2)}
+.note-box p:last-child{margin:0}
+
+.spec{background:#fff;border:1px solid var(--line);border-radius:6px;padding:22px;margin:16px 0}
+.spec-row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:20px;padding:14px 0;border-bottom:1px solid #EDECE7;align-items:baseline}
+.spec-row:last-child{border-bottom:0}
+.spec-meta{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-3);line-height:1.55}
+.spec-meta b{display:block;color:var(--ink-2);font-size:11px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.s-display{font-family:'Playfair Display',serif;font-size:42px;line-height:1.05;color:var(--teal);letter-spacing:-.02em}
+.s-h2{font-weight:600;font-size:26px;line-height:1.2;color:var(--ink);letter-spacing:-.02em}
+.s-h2s{font-family:'Playfair Display',serif;font-size:27px;line-height:1.2;color:var(--teal)}
+.s-h3{font-weight:600;font-size:18px;color:var(--ink);letter-spacing:-.01em}
+.s-body{font-size:16px;color:var(--ink-2);max-width:58ch}
+.s-nav{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:500}
+.s-price{font-size:18px;font-weight:600;color:var(--ink)}
+.s-meta{font-size:13px;color:var(--ink-3)}
+.bad{background:var(--crit-soft);border-radius:4px;padding:9px 12px;margin-top:8px}
+.bad p{margin:0;font-size:12.5px;color:#5F2018}
+
+.shot{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
+.shot-c{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.shot-c .im{background:var(--ph);height:96px}
+.shot-c .tx{padding:9px 11px}
+.shot-c b{display:block;font-size:13px;margin-bottom:2px}
+.shot-c span{font-size:12px;color:var(--ink-2);line-height:1.45;display:block}
+
+.foot{padding:44px 0 66px;color:var(--ink-3);font-size:13px;max-width:70ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Serranía · Ella 5.0.9 + PageFly · v5 · Agosto 2026</p>
+  <h1>Tres pilares, un sistema</h1>
+  <p class="lede">Home como equilibrio de las dos líneas, Tienda y Para Empresas como páginas pares, y debajo todo lo que sostiene la compra. Incluye el sistema tipográfico resuelto, la guía de producción visual y el proceso de compra en detalle.</p>
+  <div class="legend">
+    <span class="tag v-set">Ajuste del editor</span>
+    <span class="tag v-ella">Sección de Ella</span>
+    <span class="tag v-app">App que ya tienes</span>
+    <span class="tag v-cont">Contenido</span>
+    <span class="tag v-pf">PageFly</span>
+    <span class="tag v-css">1 línea de CSS</span>
+    <span class="tag v-crit">Corrige un error</span>
+  </div>
+</header>
+
+<!-- 00 ARQUITECTURA -->
+<section class="screen">
+  <div class="shead"><span class="snum">00</span><h2>Arquitectura y nombres</h2></div>
+  <p class="sdek">Tres niveles. El home no decide por nadie; el segundo nivel vende cada línea completa; el tercero deja elegir producto.</p>
+
+  <div class="tblwrap"><table>
+    <tr><th style="width:20%">Nivel</th><th style="width:34%">Páginas</th><th style="width:46%">Su trabajo</th></tr>
+    <tr><td>1 · Marca</td><td>Home</td><td>Quién es Serranía y a dónde va cada visitante. Equilibrio real entre las dos líneas.</td></tr>
+    <tr><td>2 · Línea</td><td>Tienda · Para Empresas</td><td>Vender la línea completa. Empresas ya existe y funciona; Tienda hay que crearla.</td></tr>
+    <tr><td>3 · Categoría</td><td>Mujer · Hombre · Regalos · Outlet</td><td>Dejar elegir. Ya existen y están bien: solo les faltan filtros.</td></tr>
+    <tr><td>4 · Producto</td><td>Ficha</td><td>Cerrar la venta. Es donde más se pierde hoy.</td></tr>
+  </table></div>
+
+  <h3>Sobre el nombre</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:24%">Opción</th><th style="width:76%">Lectura</th></tr>
+    <tr><td>Tienda Online</td><td>Clarísimo, pero «online» sobra: todo el sitio lo es. Suena a 2015 y ocupa mucho ancho en el menú móvil.</td></tr>
+    <tr><td><b>Tienda</b> · recomendada</td><td>Corta, se escanea en un golpe de vista y nadie duda de qué hay detrás. Emparejada con «Para Empresas» queda simétrica y sin ambigüedad.</td></tr>
+    <tr><td>Para ti / Para Empresas</td><td>El par más elegante y el que mejor comunica que son dos audiencias, no dos catálogos. Pero «Para ti» no le dice nada a alguien que llega frío, y no lo busca nadie en Google.</td></tr>
+    <tr><td>Colecciones</td><td>Se choca con las colecciones mensuales. Genera confusión interna al hablar del sitio.</td></tr>
+  </table></div>
+  <div class="note-box">
+    <p><strong>Recomendación:</strong> <b>Tienda</b> en el menú y <b>Para Empresas</b> al lado. En el titular de la página sí puedes ser cálida — «Ropa para tu día a día» — porque ahí ya llegó, no está navegando.</p>
+  </div>
+</section>
+
+<!-- 01 TIPOGRAFÍA -->
+<section class="screen">
+  <div class="shead"><span class="snum">01</span><h2>Sistema tipográfico</h2></div>
+  <p class="sdek">Tu intuición es correcta: Playfair es una serif de contraste alto — trazos gruesos y finísimos alternados. Se ve preciosa en grande y se cae en pantalla pequeña, en texto largo y en mayúsculas. Hoy la usas en versalitas para títulos como «NUESTRA PROMESA» o «LO QUE DICEN DE NOSOTROS», que es justo su peor escenario.</p>
+
+  <div class="note-box">
+    <p><strong>La pareja:</strong> Playfair Display como acento de marca, e <b>Inter</b> como la voz estructural. Inter es lo más cercano a la San Francisco de Apple que puedes usar libremente: neutral, altísima legibilidad en pantalla, rango completo de pesos. Alternativas equivalentes si Inter no está en el selector de Ella: <b>DM Sans</b> o <b>Instrument Sans</b>. Verifica en la configuración de tipografía del tema antes de decidir.</p>
+    <p><strong>Y una decisión de fondo que te propongo:</strong> lo verdaderamente «estilo Apple» no es combinar serif y sans en partes iguales — es reservar la serif para dos o tres momentos por página y dejar que la sans haga todo el trabajo estructural. Abajo está esa versión. Es la que recomiendo, y de paso resuelve tu problema de legibilidad.</p>
+  </div>
+
+  <div class="spec">
+    <div class="spec-row">
+      <div class="spec-meta"><b>Display · Playfair</b>400 · Móvil 34 px<br>Escritorio 58 px<br>Interlínea 1,05<br>Tracking −2%<br><i>Solo hero y momentos editoriales</i></div>
+      <div class="s-display">Versátil por naturaleza</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-meta"><b>Título de sección · Inter</b>600 · Móvil 22 px<br>Escritorio 28 px<br>Tracking −2%<br>Una sola línea</div>
+      <div class="s-h2">Lo que más se lleva</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-meta"><b>Alternativa · Playfair</b>Si un título merece peso de marca<br>Máx. 2 por página<br>Nunca en versalitas</div>
+      <div class="s-h2s">Cada prenda pasa por nuestras manos</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-meta"><b>Subtítulo · Inter</b>600 · Móvil 17 px<br>Escritorio 19 px</div>
+      <div class="s-h3">Hecha en nuestro taller</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-meta"><b>Cuerpo · Inter</b>400 · Móvil 15 px<br>Escritorio 16 px<br>Interlínea 1,6<br>Máx. 65 caracteres</div>
+      <div class="s-body">Tejido de doble cara con caída estructurada. La costura reforzada del hombro y la cremallera semi-invisible son las mismas que usamos en las colecciones que producimos para otras marcas.</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-meta"><b>Navegación y botones</b>Inter 500 · 13–14 px<br>Versalitas · +0,10 em</div>
+      <div class="s-nav">Tienda &nbsp;·&nbsp; Para Empresas &nbsp;·&nbsp; Regalos</div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-meta"><b>Precio · Inter</b>600 · Móvil 17 px<br>Escritorio 19 px<br>Cifras tabulares</div>
+      <div class="s-price">$199.900 <span class="s-meta">· 4 cuotas de $49.975</span></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-meta"><b>Secundario · Inter</b>400 · 13 px<br>Nunca bajo 13</div>
+      <div class="s-meta">La modelo mide 1,70 m y usa talla S · Fit regular</div>
+    </div>
+  </div>
+
+  <h3>Las reglas que hacen la diferencia</h3>
+  <div class="note-box">
+    <p><b>1. Playfair nunca en versalitas.</b> Es la regla más importante y la que más te va a cambiar la percepción del sitio. Una serif de contraste alto en mayúsculas con espaciado pierde toda su forma. «NUESTRA PROMESA» pasa a «Nuestra promesa».</p>
+    <p><b>2. Playfair nunca por debajo de 22 px</b>, nunca en párrafos, nunca en botones, nombres de producto ni precios.</p>
+    <p><b>3. Máximo dos apariciones de Playfair por página.</b> Si aparece en todos los títulos, deja de ser acento y se vuelve ruido — que es lo que pasa hoy.</p>
+    <p><b>4. Tracking negativo en títulos grandes</b> (−2%). Es el detalle que separa lo que se ve profesional de lo que se ve por defecto, y es lo que hace Apple.</p>
+    <p><b>5. Un solo botón primario:</b> relleno teal, texto blanco, radio 5 px, alto mínimo 44 px, Inter 500. Y uno secundario con contorno. Hoy conviven el beige de «Agregar al carrito», el teal del footer y el enlace subrayado del hero.</p>
+    <p><b>6. Nada por debajo de 13 px en móvil</b>, ninguna línea de cuerpo más larga de 65 caracteres.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>Lo que rompe la consistencia hoy, y es todo cromático:</strong> la X roja del menú, el rojo de OUTLET, el botón de compra en beige y las fotos generadas por IA junto a fotografía real. Cuatro elementos fuera de la paleta contaminan la percepción de todo lo demás.</p>
+  </div>
+</section>
+
+<!-- 02 VISUALES -->
+<section class="screen">
+  <div class="shead"><span class="snum">02</span><h2>Guía de producción visual</h2></div>
+  <p class="sdek">Si estás rehaciendo fotos y video, esto es lo que más rendimiento te va a dar por peso producido. La consistencia de proporciones es lo que arregla la grilla dentada, y las fotos reales son lo que reemplaza a las de IA.</p>
+
+  <h3>Proporciones · una sola por familia</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:24%">Uso</th><th style="width:16%">Proporción</th><th style="width:60%">Por qué</th></tr>
+    <tr><td>Producto en grilla y ficha</td><td>3:4 vertical</td><td>Estándar en moda: cuerpo completo sin recortar pies. <b>Todas iguales, sin excepción</b> — hoy los blazers Aurora son más altos que Santorini y la grilla queda dentada.</td></tr>
+    <tr><td>Editorial y hero</td><td>16:9 escritorio · 4:5 móvil</td><td>Dos recortes del mismo disparo. Ella permite imagen distinta por dispositivo.</td></tr>
+    <tr><td>Detalle macro</td><td>1:1</td><td>Se acomoda en tiras de 3, 4 o 6 sin romper nada.</td></tr>
+    <tr><td>Video de producto</td><td>Vertical 9:16, 4–6 s</td><td>Silenciado, en bucle, bajo 2 MB, con imagen de respaldo.</td></tr>
+  </table></div>
+
+  <h3>Las seis tomas por producto</h3>
+  <div class="shot">
+    <div class="shot-c"><div class="im"></div><div class="tx"><b>1 · Cuerpo completo</b><span>De frente, prenda puesta, fondo limpio o urbano sin ruido.</span></div></div>
+    <div class="shot-c"><div class="im"></div><div class="tx"><b>2 · Espalda</b><span>La que nadie hace y todo el mundo se pregunta.</span></div></div>
+    <div class="shot-c"><div class="im"></div><div class="tx"><b>3 · Detalle de tela</b><span>Luz lateral para que se vea la textura y el tejido.</span></div></div>
+    <div class="shot-c"><div class="im"></div><div class="tx"><b>4 · Detalle de acabado</b><span>Cremallera, costura, etiqueta. Aquí se prueba la calidad.</span></div></div>
+    <div class="shot-c"><div class="im"></div><div class="tx"><b>5 · Prenda sola</b><span>Fondo blanco, para comparar color y forma real.</span></div></div>
+    <div class="shot-c"><div class="im"></div><div class="tx"><b>6 · Movimiento</b><span>Video de 4 s girando o caminando. Muestra caída y peso.</span></div></div>
+  </div>
+
+  <div class="note-box">
+    <p><strong>Sobre «más real y de más confianza», que es lo que buscas:</strong> lo que genera confianza en moda no es la producción cara, es la <b>evidencia verificable</b>. Una foto de la costura con luz dura convence más que una campaña impecable. Un video de 15 segundos en el taller convence más que uno de marca de 60.</p>
+    <p><strong>Y lo que la destruye:</strong> las imágenes generadas por IA. Se detectan, y cuando se detectan el visitante deja de creer todo lo demás en la página — incluidas las reseñas y los logos. Reemplazarlas es más urgente que producir material nuevo.</p>
+    <p><strong>Consistencia de color:</strong> un solo tratamiento para toda la biblioteca. Misma temperatura, mismo contraste, mismo nivel de saturación. Es lo que hace que quince fotos distintas se lean como una marca y no como un collage.</p>
+  </div>
+
+  <div class="note-box">
+    <p><strong>Lo que ya tienes producido y no estás usando en la tienda:</strong> las fotos del taller y de la costura, el video del CEO, el material de «Hecho en Colombia», los testimonios con foto y cargo. Todo está en la página de empresas. Antes de rodar nada nuevo, vale la pena inventariar eso: buena parte del bloque de taller de los wireframes se puede montar mañana.</p>
+  </div>
+</section>
+
+<!-- 03 HOME -->
+<section class="screen">
+  <div class="shead"><span class="snum">03</span><h2>Pilar 1 · Home</h2></div>
+  <p class="sdek">Ni tienda primero ni empresas primero: marca primero y bifurcación clara. Ninguno de tus dos canales pagos entra por aquí — Meta cae en producto y Google Ads en empresas — así que este es tráfico directo y de marca, el de mayor intención y el que menos atendido está.</p>
+
+  <div class="cols">
+    <div><div class="phone"><div class="phone-in">
+      <div class="strip">Envío gratis desde $250.000</div>
+      <div class="navbar">
+        <div class="ph" style="width:15px;height:10px"></div><div class="ph" style="width:70px;height:13px"></div>
+        <div class="row" style="flex:0 0 auto;gap:8px"><div class="ph" style="width:12px;height:12px"></div><div class="ph" style="width:12px;height:12px"></div></div>
+      </div>
+      <div class="blk" style="padding:0"><div class="bnum">1</div>
+        <div class="ph-d" style="height:168px;display:flex;flex-direction:column;justify-content:center;padding:0 14px">
+          <p class="hk" style="font-size:19px;margin-bottom:4px">Diseñamos y confeccionamos en Colombia</p>
+          <p class="mini">Para tu clóset y para tu marca</p>
+        </div>
+      </div>
+      <div class="blk"><div class="bnum n">2</div><div class="bl">
+        <div class="g2">
+          <div><div class="ph" style="height:106px"></div><p class="mini" style="font-weight:600;margin-top:4px">Tienda</p><p class="mini">Mujer y hombre</p><div class="btn" style="margin-top:4px">Ver colección</div></div>
+          <div><div class="ph" style="height:106px"></div><p class="mini" style="font-weight:600;margin-top:4px">Para Empresas</p><p class="mini">Desde 50 unidades</p><div class="btn sand" style="margin-top:4px">Cotizar</div></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum n">3</div><div class="bl">
+        <p class="lab">+300 empresas · Hecho en Colombia</p>
+        <div class="g4" style="gap:5px"><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div></div>
+        <div class="g4" style="gap:5px;margin-top:5px"><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div></div>
+      </div></div>
+      <div class="blk"><div class="bnum n">4</div><div class="bl">
+        <p class="hk">Colección de agosto</p>
+        <div class="g2">
+          <div><div class="ph" style="height:80px"></div><div class="sw"><i></i><i></i><i></i></div><div class="txt w85"></div><div class="txt w40"></div></div>
+          <div><div class="ph" style="height:80px"></div><div class="sw"><i></i><i></i></div><div class="txt w70"></div><div class="txt w40"></div></div>
+        </div>
+        <div class="btn ghost" style="margin-top:7px">Ver la colección</div>
+      </div></div>
+      <div class="blk"><div class="bnum n">5</div><div class="bl">
+        <p class="hk">Cada prenda pasa por nuestras manos</p>
+        <div class="row" style="gap:4px">
+          <div class="ph-d" style="height:52px"></div><div class="ph-d" style="height:52px"></div>
+          <div class="ph-d" style="height:52px"></div><div class="ph-d" style="flex:0 0 15px;height:52px"></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum">6</div><div class="bl">
+        <div class="g4" style="gap:4px">
+          <div style="text-align:center"><div class="ph" style="height:15px;width:15px;margin:0 auto;border-radius:50%"></div><div class="txt" style="margin-top:3px"></div></div>
+          <div style="text-align:center"><div class="ph" style="height:15px;width:15px;margin:0 auto;border-radius:50%"></div><div class="txt" style="margin-top:3px"></div></div>
+          <div style="text-align:center"><div class="ph" style="height:15px;width:15px;margin:0 auto;border-radius:50%"></div><div class="txt" style="margin-top:3px"></div></div>
+          <div style="text-align:center"><div class="ph" style="height:15px;width:15px;margin:0 auto;border-radius:50%"></div><div class="txt" style="margin-top:3px"></div></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum">7</div><div class="bl">
+        <p class="lab">Lo que dicen</p>
+        <div class="g2" style="gap:8px">
+          <div><div class="txt w55" style="background:var(--ph-2)"></div><div class="txt"></div><div class="txt w70"></div><p class="mini">Clienta</p></div>
+          <div><div class="txt w55" style="background:var(--ph-2)"></div><div class="txt"></div><div class="txt w85"></div><p class="mini">Empresa</p></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum">8</div><div class="bl">
+        <p class="lab">Prensa</p>
+        <div class="g3"><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div></div>
+      </div></div>
+      <div class="blk"><div class="bnum">9</div><div class="bl">
+        <div class="row"><div class="field" style="flex:2"></div><div class="btn" style="flex:1">Suscribirme</div></div>
+      </div></div>
+    </div></div></div>
+
+    <div class="notes">
+      <div class="note"><div class="nnum">1</div><div>
+        <p class="nt">Hero de marca, no de campaña <span class="tag v-ella">nativa</span></p>
+        <p class="nb">Hoy el home abre con el banner de la colección del mes, lo cual lo convierte en una tienda y deja a empresas fuera. Si es el punto de equilibrio, el hero tiene que hablar de lo que ambas comparten: que diseñan y confeccionan en Colombia.</p>
+        <div class="hook"><span>Hook</span><p>Diseñamos y confeccionamos en Colombia</p><em>Para tu clóset y para tu marca</em></div>
+        <p class="resp"><b>Móvil:</b> 55 vh, para que las dos puertas asomen antes del primer scroll. <b>Escritorio:</b> 65 vh.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">2</div><div>
+        <p class="nt">Las dos puertas, con el mismo peso <span class="tag v-ella">nativa</span></p>
+        <p class="nb">Aquí está el equilibrio literal: dos tarjetas idénticas en tamaño, con foto propia, una línea de contexto y su botón. Ninguna gana. Es la única sección del sitio donde las dos líneas se ven como pares.</p>
+        <p class="nb">Reemplaza a «Líneas de negocio», que hoy son tres tarjetas de distinto peso y mandan a destinos inconsistentes.</p>
+        <p class="resp"><b>Móvil:</b> dos columnas, no apiladas — apiladas la segunda cae fuera de pantalla y deja de ser equilibrio.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">3</div><div>
+        <p class="nt">Los logos, arriba y para las dos líneas <span class="tag v-cont">ya lo tienes</span></p>
+        <p class="nb">Este es el activo más desperdiciado del sitio. Porsche, Google, Toyota, Avianca, Nintendo, Heineken, Bayer. Hoy solo viven en la página de empresas.</p>
+        <p class="nb"><b>Para empresas</b> es prueba de capacidad. <b>Para la tienda</b> es la respuesta a «¿esta marca es seria?» de alguien que va a pagar $199.900 sin conocerla. Un mismo bloque haciendo dos trabajos: eso es el equilibrio real, no repartir píxeles.</p>
+        <div class="hook"><span>Hook</span><p>Más de 300 empresas confían en nosotros</p></div>
+      </div></div>
+
+      <div class="note"><div class="nnum n">4</div><div>
+        <p class="nt">Colección del mes <span class="tag v-ella">nativa</span></p>
+        <p class="nb">El bloque que rotas cada mes. Como sacan colección nueva mensualmente, esto se configura una vez y después solo se cambia la colección asignada y la foto — no se construye una landing nueva cada vez.</p>
+        <p class="resp"><b>Móvil:</b> 2 productos con precio visible. <b>Escritorio:</b> 4.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">5</div><div>
+        <p class="nt">El taller <span class="tag v-cont">material existente</span></p>
+        <p class="nb">Tira de detalle macro: costura, cremallera, tela, el taller. Las fotos y el video de la máquina de coser ya están producidos en la página de empresas. Es el bloque bisagra entre las dos líneas.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">6</div><div>
+        <p class="nt">Banda de confianza <span class="tag v-set">ajuste</span></p>
+        <p class="nb">Los seis íconos de «¿Qué puedes esperar?» comprimidos a cuatro en una franja: hecho en Colombia, envío 48 h, cambios 30 días, pago seguro.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">7</div><div>
+        <p class="nt">Un testimonio de cada línea <span class="tag v-set">mover</span></p>
+        <p class="nb">Uno de clienta y uno de empresa, lado a lado. Es la forma más económica de mantener el equilibrio sin duplicar secciones. Los dos ya existen — los de clientas en el home actual, los de empresas en su página.</p>
+        <p class="nb">Sale la imagen de «4,5 en reseñas de Facebook»: no es verificable y en 2026 no dice nada.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">8</div><div>
+        <p class="nt">Prensa en una fila <span class="tag v-crit">duplicado</span></p>
+        <p class="nb">El bloque de El Espectador aparece hoy dos veces con la misma firma.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">9</div><div>
+        <p class="nt">Cierre <span class="tag v-crit">4 correcciones</span></p>
+        <p class="nb">Fuera la sección de Fontanar, que lleva dos años anunciando un cierre. Enlace de comunidad con <code>https://</code> duplicado, footer apuntando a otro Instagram, copyright en 2022, y el cupón <code>SPCX10%</code> con el símbolo de porcentaje dentro del código.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TIENDA -->
+<section class="screen">
+  <div class="shead"><span class="snum">04</span><h2>Pilar 2 · Tienda</h2></div>
+  <p class="sdek">La página que falta. Su modelo es la de empresas, pero no una copia: allá la conversión es un formulario y la página puede persuadir sin prisa; aquí la conversión es una compra y hay que llevar a producto rápido. La prueba de que funciona: si alguien llega y no baja a Mujer ni a Hombre, ¿aprendió algo que lo acerque a comprar?</p>
+
+  <div class="cols">
+    <div><div class="phone"><div class="phone-in">
+      <div class="strip">Envío gratis desde $250.000</div>
+      <div class="navbar">
+        <div class="ph" style="width:15px;height:10px"></div><div class="ph" style="width:70px;height:13px"></div>
+        <div class="row" style="flex:0 0 auto;gap:8px"><div class="ph" style="width:12px;height:12px"></div><div class="ph" style="width:12px;height:12px"></div></div>
+      </div>
+      <div class="blk" style="padding:0"><div class="bnum">1</div>
+        <div class="ph-d" style="height:150px;display:flex;flex-direction:column;justify-content:center;padding:0 14px">
+          <p class="hk" style="font-size:17px;margin-bottom:3px">Ropa para tu día a día</p>
+          <p class="mini">Colección nueva cada mes</p>
+        </div>
+      </div>
+      <div class="blk"><div class="bnum n">2</div><div class="bl">
+        <div class="g2">
+          <div><div class="ph" style="height:98px"></div><div class="btn" style="margin-top:5px">Mujer</div></div>
+          <div><div class="ph" style="height:98px"></div><div class="btn" style="margin-top:5px">Hombre</div></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum n">3</div><div class="bl">
+        <p class="hk">Colección de agosto</p>
+        <div class="g2">
+          <div><div class="ph" style="height:80px"></div><span class="badge" style="margin-top:3px">Nuevo</span><div class="sw"><i></i><i></i><i></i></div><div class="txt w85"></div><div class="txt w40"></div></div>
+          <div><div class="ph" style="height:80px"></div><div class="sw" style="margin-top:16px"><i></i><i></i></div><div class="txt w70"></div><div class="txt w40"></div></div>
+        </div>
+        <div class="g2" style="margin-top:6px">
+          <div><div class="ph" style="height:80px"></div><div class="sw"><i></i><i></i></div><div class="txt w85"></div><div class="txt w40"></div></div>
+          <div><div class="ph" style="height:80px"></div><div class="sw"><i></i><i></i><i></i></div><div class="txt w70"></div><div class="txt w40"></div></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum n">4</div><div class="bl">
+        <p class="lab">Explora por prenda</p>
+        <div class="g4" style="gap:5px">
+          <div><div class="ph" style="height:44px"></div><div class="txt" style="margin-top:3px"></div></div>
+          <div><div class="ph" style="height:44px"></div><div class="txt" style="margin-top:3px"></div></div>
+          <div><div class="ph" style="height:44px"></div><div class="txt" style="margin-top:3px"></div></div>
+          <div><div class="ph" style="height:44px"></div><div class="txt" style="margin-top:3px"></div></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum n">5</div><div class="bl">
+        <p class="hk">Las mismas manos que visten a estas marcas</p>
+        <div class="g4" style="gap:5px"><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div><div class="ph" style="height:17px"></div></div>
+        <div class="txt w85" style="margin-top:6px"></div><div class="txt w55"></div>
+      </div></div>
+      <div class="blk"><div class="bnum n">6</div><div class="bl">
+        <p class="lab">Nuestra promesa</p>
+        <div class="g2" style="gap:8px">
+          <div class="row" style="align-items:center"><div class="ph" style="width:16px;height:16px;flex:0 0 16px;border-radius:50%"></div><div><div class="txt w85"></div></div></div>
+          <div class="row" style="align-items:center"><div class="ph" style="width:16px;height:16px;flex:0 0 16px;border-radius:50%"></div><div><div class="txt w70"></div></div></div>
+          <div class="row" style="align-items:center"><div class="ph" style="width:16px;height:16px;flex:0 0 16px;border-radius:50%"></div><div><div class="txt w85"></div></div></div>
+          <div class="row" style="align-items:center"><div class="ph" style="width:16px;height:16px;flex:0 0 16px;border-radius:50%"></div><div><div class="txt w70"></div></div></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum n">7</div><div class="bl">
+        <p class="lab">Lo que más se lleva</p>
+        <div class="row">
+          <div><div class="ph" style="height:68px"></div><div class="txt w85"></div><div class="txt w40"></div></div>
+          <div><div class="ph" style="height:68px"></div><div class="txt w70"></div><div class="txt w40"></div></div>
+          <div style="flex:0 0 22px"><div class="ph" style="height:68px"></div></div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum n">8</div><div class="bl">
+        <p class="lab">Reseñas de clientas</p>
+        <div class="row" style="gap:4px;margin-bottom:5px"><div class="ph" style="height:32px"></div><div class="ph" style="height:32px"></div><div class="ph" style="height:32px"></div></div>
+        <div class="txt w40" style="background:var(--ph-2)"></div><div class="txt w85"></div>
+      </div></div>
+      <div class="blk"><div class="bnum n">9</div><div class="bl">
+        <p class="lab">Cómo la están usando</p>
+        <div class="g4" style="gap:4px"><div class="ph" style="height:34px"></div><div class="ph" style="height:34px"></div><div class="ph" style="height:34px"></div><div class="ph" style="height:34px"></div></div>
+      </div></div>
+    </div></div></div>
+
+    <div class="notes">
+      <div class="note"><div class="nnum">1</div><div>
+        <p class="nt">Hero de la línea <span class="tag v-ella">nativa</span></p>
+        <p class="nb">Empresas abre con «moda corporativa premium desde 50 unidades» — promesa concreta con cifra. El equivalente aquí no es una frase de marca sino qué es Serranía para una persona.</p>
+        <div class="hook"><span>Hook</span><p>Ropa para tu día a día</p><em>Diseñada y confeccionada en Colombia · colección nueva cada mes</em></div>
+      </div></div>
+
+      <div class="note"><div class="nnum n">2</div><div>
+        <p class="nt">Mujer y Hombre, arriba <span class="tag v-ella">nativa</span></p>
+        <p class="nb">A diferencia de empresas, aquí la bifurcación va temprano: quien llegó a comprar ya sabe qué mira. Si los entierras bajo tres bloques de persuasión, esta página se vuelve el peaje que querías evitar.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">3</div><div>
+        <p class="nt">Colección del mes <span class="tag v-ella">nativa</span></p>
+        <p class="nb">Producto y precio antes que cualquier argumento. Aquí es donde el bloque rotativo mensual hace su trabajo: se cambia la colección asignada y listo.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">4</div><div>
+        <p class="nt">Explora por prenda <span class="tag v-ella">nativa</span></p>
+        <p class="nb">El equivalente del «Elige tu prenda» de empresas, que allá funciona muy bien con ocho categorías. Aquí: chaquetas, blazers, buzos, camisetas. Da un segundo camino a quien no busca por género sino por tipo.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">5</div><div>
+        <p class="nt">Los logos, con otro titular <span class="tag v-cont">ya lo tienes</span></p>
+        <p class="nb">El mismo muro, distinta lectura. En empresas dice «ellos ya eligieron hacer sus prendas con Serranía». Aquí tiene que traducir la credibilidad B2B en confianza de consumo.</p>
+        <div class="hook"><span>Hook</span><p>Las mismas manos que visten a estas marcas hacen tu ropa</p><em>Enlace: Conoce nuestro taller</em></div>
+      </div></div>
+
+      <div class="note"><div class="nnum n">6</div><div>
+        <p class="nt">La promesa, traducida <span class="tag v-cont">contenido</span></p>
+        <p class="nb">Empresas promete acabados, sostenibilidad, servicio y garantía de 365 días. La versión consumidor: hecho en Colombia, envío en 48 h en Bogotá, cambios a 30 días, empaque de regalo.</p>
+        <p class="nb"><b>Y una pregunta comercial:</b> si a empresas les garantizas reemplazo por un año, ¿aplica también al consumidor? Si aplica, es un argumento enorme que no estás usando en ningún lado de la tienda.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">7</div><div>
+        <p class="nt">Más vendidos <span class="tag v-ella">nativa</span></p>
+        <p class="nb">Segunda oportunidad para quien no conectó con la colección del mes. En móvil, tira deslizable con medio producto cortado a la derecha.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">8</div><div>
+        <p class="nt">Reseñas de clientas <span class="tag v-app">Reviews por WhatsApp</span></p>
+        <p class="nb">Empresas tiene testimonios con foto, nombre y cargo, y están muy bien hechos. La tienda necesita su equivalente y la app ya está instalada — hoy no muestra ni una.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">9</div><div>
+        <p class="nt">Instagram comprable <span class="tag v-app">app</span></p>
+        <p class="nb">Que cada foto lleve a su ficha. Es la respuesta directa a «que no entren y salgan sin hacer un clic»: contenido que ya produces convertido en camino a producto.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 EMPRESAS -->
+<section class="screen">
+  <div class="shead"><span class="snum">05</span><h2>Pilar 3 · Para Empresas</h2></div>
+  <p class="sdek">Esta página ya está bien construida y es la que más factura. No la rehagas: seis ajustes puntuales, y el más importante no es de diseño.</p>
+
+  <div class="tblwrap"><table>
+    <tr><th style="width:26%">Ajuste</th><th style="width:74%">Detalle</th></tr>
+    <tr><td>Marcar el formulario como conversión en Google Ads</td><td><b>El de mayor impacto de todo el documento.</b> El formulario existe y califica bien. Si no está marcado como conversión, Google Ads está comprando visitas en vez de oportunidades y no puede aprender. <span class="tag v-crit">verificar hoy</span></td></tr>
+    <tr><td>El título del formulario</td><td>Dice «Hablemos por WhatsApp» pero es un formulario. Quien busca rapidez no lo llena porque espera un botón; quien prefiere formulario duda de qué va a pasar. Separar: «Cuéntanos qué necesitas» como título, y el botón de WhatsApp aparte para quien tiene afán.</td></tr>
+    <tr><td>Un ancla al formulario arriba</td><td>El formulario está al final de una página muy larga. El botón del hero debería llevar directo a él, y conviene repetir un acceso a media página.</td></tr>
+    <tr><td>Variar los «Habla con un asesor»</td><td>Aparece seis veces con el mismo texto. Consistente, pero pierde fuerza. Variar según el contexto: «Pide tu cotización», «Solicita una muestra», «Habla con un consultor».</td></tr>
+    <tr><td>Versalitas en Playfair</td><td>«NUESTRA PROMESA», «ELIGE TU PRENDA» y «LO QUE DICEN DE NOSOTROS» en mayúsculas con serif de contraste alto. Es el punto de peor legibilidad del sitio. <span class="tag v-crit">tipografía</span></td></tr>
+    <tr><td>Tiempos de entrega</td><td>Dices «desde 50 unidades» en todas partes, pero en ninguna cuánto tarda. Es la segunda pregunta de cualquier comprador corporativo después del mínimo.</td></tr>
+  </table></div>
+
+  <div class="note-box">
+    <p><strong>Lo que esta página hace bien y hay que replicar en la tienda:</strong> promesa con cifra en el titular, muro de logos temprano, catálogo de posibilidades, cuatro promesas concretas, prueba en video, testimonios con nombre y cargo, y una conversión que califica. Es un buen modelo — por eso la tienda debe tener su equivalente.</p>
+  </div>
+</section>
+
+<!-- 06 COLECCIÓN -->
+<section class="screen">
+  <div class="shead"><span class="snum">06</span><h2>Mujer y Hombre</h2></div>
+  <p class="sdek">Están bien y no hay que rehacerlas. Cuatro cosas, y una es la más importante de todo el sitio para la interacción.</p>
+
+  <div class="tblwrap"><table>
+    <tr><th style="width:26%">Cambio</th><th style="width:74%">Detalle</th></tr>
+    <tr><td>Filtros de talla, color y precio</td><td>Lo que más falta. Filtrar es el primer clic de una compradora real — es literalmente la interacción que estás buscando provocar. La app <b>Búsqueda y descubrimiento</b> ya está instalada: crear los grupos y verificar que Ella 5.0.9 los renderice. <span class="tag v-app">ya instalada</span></td></tr>
+    <tr><td>Misma proporción en todas las fotos</td><td>3:4 sin excepción. Hoy los blazers Aurora son más altos que Santorini y Amsterdam, y la grilla queda dentada. Es lo que se lee como descuidado. <span class="tag v-crit">error</span></td></tr>
+    <tr><td>Tarjeta enriquecida</td><td>Swatches de color, estrellas, cuota de ADDI y distintivos de más vendida. Hoy solo hay foto, nombre y precio.</td></tr>
+    <tr><td>24 por página</td><td>Hoy son 50. Demasiado peso para desplazar en móvil, que es el 80% de tus sesiones.</td></tr>
+  </table></div>
+</section>
+
+<!-- 07 FICHA -->
+<section class="screen">
+  <div class="shead"><span class="snum">07</span><h2>Ficha · el proceso de compra</h2></div>
+  <p class="sdek">La pantalla donde más se pierde y donde pediste más profundidad. Los clics a WhatsApp son casi cuatro veces el volumen de add-to-cart: cada mensaje es una objeción que esta página debió resolver. Aquí va también cómo se ve, cómo se toca y qué pasa al comprar.</p>
+
+  <div class="cols">
+    <div><div class="phone"><div class="phone-in">
+      <div class="navbar">
+        <div class="ph" style="width:15px;height:10px"></div><div class="ph" style="width:70px;height:13px"></div>
+        <div class="row" style="flex:0 0 auto;gap:8px"><div class="ph" style="width:12px;height:12px"></div><div class="ph" style="width:12px;height:12px"></div></div>
+      </div>
+      <div class="blk" style="padding:0"><div class="bnum">1</div>
+        <div class="ph-d" style="height:180px;position:relative">
+          <div style="position:absolute;bottom:7px;left:50%;transform:translateX(-50%)" class="row">
+            <span class="chip" style="background:#fff;font-size:8px">1/6</span>
+          </div>
+        </div>
+        <div class="g6" style="padding:5px 9px">
+          <div class="ph" style="height:22px"></div><div class="ph" style="height:22px"></div><div class="ph" style="height:22px"></div>
+          <div class="ph" style="height:22px"></div><div class="ph" style="height:22px"></div><div class="ph-d" style="height:22px"></div>
+        </div>
+      </div>
+      <div class="blk"><div class="bnum">2</div><div class="bl">
+        <div class="txt w70" style="height:10px;background:var(--ph-2)"></div>
+        <p class="mini">★★★★★ 4,8 · 24 reseñas</p>
+        <div class="txt w40" style="height:11px;margin-top:5px;background:var(--ph-2)"></div>
+        <p class="mini">o 4 cuotas de $49.975 con ADDI</p>
+      </div></div>
+      <div class="blk"><div class="bnum">3</div><div class="bl">
+        <p class="lab">Color · Marfil</p>
+        <div class="sw" style="gap:6px"><i style="width:18px;height:18px;border:2px solid var(--teal)"></i><i style="width:18px;height:18px"></i><i style="width:18px;height:18px"></i></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin:9px 0 4px">
+          <p class="lab" style="margin:0">Talla · elige una</p><p class="mini" style="text-decoration:underline">Ver medidas</p>
+        </div>
+        <div class="row" style="gap:4px">
+          <span class="chip" style="text-align:center">XS</span><span class="chip on" style="text-align:center">S</span>
+          <span class="chip" style="text-align:center">M</span><span class="chip off" style="text-align:center">L</span>
+        </div>
+        <p class="mini" style="margin-top:4px">Quedan 3 en talla S</p>
+      </div></div>
+      <div class="blk" style="background:#F7F6F2"><div class="bnum n">4</div><div class="bl">
+        <p class="mini">La modelo mide 1,70 m y usa talla S. Fit regular: entre dos tallas, elige la menor.</p>
+      </div></div>
+      <div class="blk"><div class="bnum">5</div><div class="bl">
+        <div class="btn" style="padding:11px">Agregar al carrito</div>
+        <div class="btn dark" style="padding:10px;margin-top:5px">Comprar ahora</div>
+      </div></div>
+      <div class="blk"><div class="bnum">6</div><div class="bl">
+        <p class="mini">✓ Envío gratis desde $250.000</p>
+        <p class="mini">✓ Cambios hasta 30 días</p>
+        <p class="mini">✓ Tarjeta, PSE, Efecty y ADDI</p>
+      </div></div>
+      <div class="blk"><div class="bnum n">7</div><div class="bl">
+        <p class="hk">Completa el conjunto</p>
+        <div class="row" style="align-items:center">
+          <div class="ph" style="height:36px;flex:0 0 28px"></div><div class="ph" style="height:36px;flex:0 0 28px"></div>
+          <div><div class="txt w85"></div><div class="txt w55"></div></div>
+        </div>
+        <div class="btn ghost" style="margin-top:6px">Llevar los dos · ahorra 10%</div>
+      </div></div>
+      <div class="blk"><div class="bnum n">8</div><div class="bl">
+        <p class="hk">Hecha en nuestro taller</p>
+        <div class="row" style="align-items:center"><div class="ph-d" style="height:30px;flex:0 0 38px"></div><div><div class="txt w85"></div><div class="txt w55"></div></div></div>
+      </div></div>
+      <div class="blk"><div class="bnum">9</div><div class="bl">
+        <div class="acc"><p class="mini" style="font-weight:500">Descripción</p><div class="txt w85"></div><div class="txt w70"></div><div class="txt w55"></div></div>
+        <div class="acc"><p class="mini" style="font-weight:500">Tallas y medidas</p><div class="ph" style="height:26px"></div></div>
+        <div class="acc"><p class="mini" style="font-weight:500">Composición y cuidado</p></div>
+        <div class="acc"><p class="mini" style="font-weight:500">Envíos</p></div>
+        <div class="acc" style="margin-bottom:0"><p class="mini" style="font-weight:500">Cambios y garantía</p></div>
+      </div></div>
+      <div class="blk"><div class="bnum n">10</div><div class="bl">
+        <p class="hk">Quienes ya la tienen</p>
+        <div class="row" style="gap:4px;margin-bottom:5px"><div class="ph" style="height:32px"></div><div class="ph" style="height:32px"></div><div class="ph" style="height:32px"></div></div>
+        <div class="txt w40" style="background:var(--ph-2)"></div><div class="txt w85"></div>
+      </div></div>
+      <div class="blk"><div class="bnum n">11</div><div class="bl">
+        <p class="hk">Antes de que preguntes</p>
+        <div class="acc"><p class="mini">¿Abriga o es de entretiempo?</p></div>
+        <div class="acc" style="margin-bottom:0"><p class="mini">¿Se puede lavar en lavadora?</p></div>
+      </div></div>
+      <div class="blk"><div class="bnum">12</div><div class="bl">
+        <p class="lab">También te puede gustar</p>
+        <div class="g3"><div class="ph" style="height:52px"></div><div class="ph" style="height:52px"></div><div class="ph" style="height:52px"></div></div>
+      </div></div>
+      <div class="sticky-bar" style="padding:7px 9px;display:flex;gap:7px;align-items:center">
+        <div class="ph" style="height:28px;width:24px"></div><span class="chip">S</span>
+        <div class="btn" style="flex:1">Agregar · $199.900</div>
+      </div>
+    </div></div></div>
+
+    <div class="notes">
+      <div class="note"><div class="nnum">1</div><div>
+        <p class="nt">Galería · cómo la ven <span class="tag v-cont">fotos</span> <span class="tag v-crit">imágenes de IA</span></p>
+        <p class="nb">Las seis tomas de la guía visual. Tres comportamientos que cambian la interacción:</p>
+        <p class="nb"><b>Cambiar de color cambia la galería.</b> Hoy, si tocas otro swatch, no está claro que la foto siga. Es la interacción más natural de una ficha de moda y la que más tiempo útil genera.</p>
+        <p class="nb"><b>Toque para ampliar.</b> En moda la gente quiere ver la tela de cerca. Sin zoom, esa curiosidad se va a WhatsApp.</p>
+        <p class="nb"><b>Contador «1/6» visible.</b> Sin él, la mayoría no sabe que hay más fotos y ve solo la primera.</p>
+        <p class="resp"><b>Móvil:</b> la barra de anuncios no debe ir entre el header y la galería — empuja la foto fuera de la primera pantalla.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">2</div><div>
+        <p class="nt">Precio, estrellas y cuota <span class="tag v-app">Nudgify: desactivar</span></p>
+        <p class="nb">El «8 clientes están viendo este producto» viene de Nudgify. Es urgencia fabricada y en una marca que se sostiene en confianza juega en contra — sobre todo cuando abajo vas a poner logos de Google y Toyota.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">3</div><div>
+        <p class="nt">Selección de talla <span class="tag v-set">ajuste</span> <span class="tag v-crit">hoy arranca en XS</span></p>
+        <p class="nb">La barra fija muestra «XS · $199.900» por defecto: quien toca «Agregar» sin fijarse compra la talla más pequeña. Devolución garantizada. Sin preselección, botones en vez de desplegable, agotadas tachadas y visibles — que se vea que existen genera confianza en el inventario.</p>
+        <p class="nb"><b>Escasez real, no fabricada:</b> «Quedan 3 en talla S» solo cuando es cierto y solo bajo 5 unidades. Esa sí funciona y es lo contrario del contador de Nudgify.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">4</div><div>
+        <p class="nt">Recomendación de fit <span class="tag v-cont">una línea</span></p>
+        <p class="nb">Estatura de la modelo, talla que lleva, qué hacer entre dos tallas. Probablemente la línea que más mensajes de WhatsApp te ahorra.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">5</div><div>
+        <p class="nt">Los dos botones <span class="tag v-set">ajuste</span> <span class="tag v-crit">hoy es beige</span></p>
+        <p class="nb">Primario en teal — hoy el botón de compra es el elemento más pálido de la pantalla. Y debajo, <b>«Comprar ahora»</b>, que salta directo al checkout: para quien ya decidió, ahorra dos pasos.</p>
+        <p class="nb"><b>Qué pasa al tocar:</b> el carrito debe abrirse como panel lateral con confirmación visible, no recargar la página ni mandar a otra pantalla. Perder el contexto del producto es donde se cae la compra por impulso.</p>
+        <p class="nb">Y el botón flotante de WhatsApp queda encima en móvil: subirlo ~80 px u ocultarlo cuando la barra fija esté visible. <span class="tag v-css">1 línea</span></p>
+      </div></div>
+
+      <div class="note"><div class="nnum">6</div><div>
+        <p class="nt">Garantías junto al botón <span class="tag v-set">el contenido existe</span></p>
+        <p class="nb">Tienes buena información de envíos y cambios, pero encerrada en acordeones. Tres líneas suben al momento de decidir.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">7</div><div>
+        <p class="nt">Conjunto <span class="tag v-app">Paquetes · ya instalada</span></p>
+        <p class="nb">Chaqueta con el legging o el short del mismo look. Va aquí y no en el carrito, donde el monto ya se decidió. Tu palanca de ticket promedio más limpia, y la herramienta ya está.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">8</div><div>
+        <p class="nt">Hecha en nuestro taller <span class="tag v-cont">dos líneas</span></p>
+        <p class="nb">El puente entre las dos líneas, en el momento exacto de la duda. Con enlace al taller y, si es posible, un logo o dos.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">9</div><div>
+        <p class="nt">Acordeones <span class="tag v-set">ajuste</span> <span class="tag v-cont">escribir</span></p>
+        <p class="nb">Sí tienes tabla de medidas en centímetros y está bien hecha, pero vive enterrada dentro del acordeón de Descripción, con un título «DESCRIPCIÓN» repetido encima y el WhatsApp tapándola. Sale a su propio acordeón, enlazada desde el selector de talla.</p>
+        <p class="nb">Y la descripción tiene que crecer: dos frases para un producto de $199.900 no dicen nada de tela, caída ni abrigo.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">10</div><div>
+        <p class="nt">Reseñas <span class="tag v-app">Reviews por WhatsApp · ya instalada</span></p>
+        <p class="nb">Tienes la app y la ficha no muestra ni una. Averiguar si nunca se configuró la sección en el tema o si no se están solicitando tras la compra. Es el hueco más grande y ya está pagado.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum n">11</div><div>
+        <p class="nt">Preguntas del producto <span class="tag v-app">Base de conocimientos + Zigpoll</span></p>
+        <p class="nb">Zigpoll resuelve el bloqueo de conseguir las objeciones: una encuesta de una pregunta tras la compra — «¿qué casi te impide comprar?» — y en una semana las tienes ordenadas, sin transcribir WhatsApp.</p>
+      </div></div>
+
+      <div class="note"><div class="nnum">12</div><div>
+        <p class="nt">Un solo carrusel <span class="tag v-crit">hoy hay dos iguales</span></p>
+        <p class="nb">«Productos relacionados» y «Productos vistos recientemente» muestran los mismos productos, uno debajo del otro. Y entre «Cambios y garantías» y el carrusel hay casi una pantalla en blanco: sección vacía a eliminar.</p>
+        <p class="nb">Los títulos bajan a una línea: «Productos vistos recientemente» ocupa hoy dos líneas de serif gigante en móvil.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 CARRITO -->
+<section class="screen">
+  <div class="shead"><span class="snum">08</span><h2>Carrito y checkout</h2></div>
+  <p class="sdek">Lo que existe funciona: la barra de envío gratis y el cross-sell están bien hechos. Aquí el trabajo es de fricción.</p>
+
+  <div class="cols">
+    <div><div class="phone"><div class="phone-in">
+      <div class="blk"><div class="bnum">1</div><div class="bl">
+        <div class="row" style="align-items:center;justify-content:space-between">
+          <p class="mini" style="font-weight:600">Agregado a tu carrito</p><div class="chip" style="flex:0 0 auto">✕</div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum">2</div><div class="bl">
+        <p class="mini">Te faltan $50.100 para el envío gratis</p>
+        <div class="ph" style="height:5px;margin-top:4px"></div>
+      </div></div>
+      <div class="blk"><div class="bnum">3</div><div class="bl">
+        <div class="row" style="align-items:flex-start">
+          <div class="ph" style="height:50px;flex:0 0 38px"></div>
+          <div><div class="txt w85"></div><p class="mini">Marfil · Talla S</p><div class="txt w40"></div>
+            <div class="row" style="margin-top:4px;gap:4px"><span class="chip" style="flex:0 0 auto">− 1 +</span><span class="chip" style="flex:0 0 auto">Quitar</span></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum">4</div><div class="bl">
+        <p class="lab">Súmale a tu pedido</p>
+        <div class="row" style="align-items:center">
+          <div class="ph" style="height:32px;flex:0 0 26px"></div>
+          <div><div class="txt w85"></div><div class="txt w40"></div></div>
+          <div class="chip" style="flex:0 0 auto">Añadir</div>
+        </div>
+      </div></div>
+      <div class="blk"><div class="bnum n">5</div><div class="bl">
+        <p class="mini">¿Es un regalo? Añade nota y empaque</p>
+      </div></div>
+      <div class="blk"><div class="bnum">6</div><div class="bl">
+        <div class="row" style="justify-content:space-between"><p class="mini">Total</p><p class="mini" style="font-weight:600">$199.900</p></div>
+        <div class="btn" style="padding:11px;margin-top:5px">Finalizar compra</div>
+        <div class="btn ghost" style="padding:8px;margin-top:5px">Seguir comprando</div>
+        <div class="row" style="margin-top:7px;gap:4px"><span class="chip">Tarjeta</span><span class="chip">PSE</span><span class="chip">ADDI</span><span class="chip">Efecty</span></div>
+      </div></div>
+    </div></div></div>
+
+    <div class="notes">
+      <div class="note"><div class="nnum">1</div><div>
+        <p class="nt">Confirmación explícita <span class="tag v-set">ajuste</span></p>
+        <p class="nb">Panel lateral que se abre solo, con «Agregado a tu carrito» visible. La duda de «¿sí quedó?» es una causa silenciosa de abandono, y en móvil el ícono del carrito con un número es demasiado sutil.</p>
+      </div></div>
+      <div class="note"><div class="nnum">2</div><div>
+        <p class="nt">Barra de envío gratis <span class="tag v-set">ya existe</span></p>
+        <p class="nb">Se conserva. El umbral se queda en $250.000.</p>
+      </div></div>
+      <div class="note"><div class="nnum">3</div><div>
+        <p class="nt">Color y talla en la línea</p>
+        <p class="nb">Reduce la duda de última hora y las devoluciones por talla equivocada.</p>
+      </div></div>
+      <div class="note"><div class="nnum">4</div><div>
+        <p class="nt">Cross-sell <span class="tag v-set">ya existe</span></p>
+        <p class="nb">Un solo producto sugerido. En el carrito la atención es corta.</p>
+      </div></div>
+      <div class="note"><div class="nnum n">5</div><div>
+        <p class="nt">Opción de regalo <span class="tag v-set">metafield</span></p>
+        <p class="nb">El empaque de regalo es un diferencial real y hoy solo se cuenta en el home. Aquí se puede vender.</p>
+      </div></div>
+      <div class="note"><div class="nnum">6</div><div>
+        <p class="nt">Checkout <span class="tag v-crit">transferencia preseleccionada</span></p>
+        <p class="nb">Viene marcada por defecto y obliga a salir a pagar al banco y enviar comprobante por WhatsApp. Es la mayor fricción del embudo, y tienes tarjeta, PSE, Efecty y ADDI disponibles. Cambiar el orden por defecto.</p>
+        <p class="nb"><b>«Seguir comprando»</b> importa más de lo que parece: sin ese botón, cerrar el panel es la única salida y mucha gente cierra la pestaña entera.</p>
+      </div></div>
+      <div class="note"><div class="nnum n">7</div><div>
+        <p class="nt">Carrito abandonado <span class="tag v-app">Seguno</span></p>
+        <p class="nb">El flujo está sin activar y el email es tu canal de mayor intención.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 NAV Y FOOTER -->
+<section class="screen">
+  <div class="shead"><span class="snum">09</span><h2>Navegación y footer</h2></div>
+
+  <h3>Menú</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:24%">Ítem</th><th style="width:76%">Contenido</th></tr>
+    <tr><td>Tienda</td><td>Mujer · Hombre · Colección del mes · Regalos · Outlet</td></tr>
+    <tr><td>Para Empresas</td><td>Directo a la página. Sin desplegable.</td></tr>
+    <tr><td>Nosotros</td><td>Historia · Nuestro taller</td></tr>
+    <tr><td>Ayuda</td><td>Cambios · Envíos · Guía de tallas · Contacto</td></tr>
+  </table></div>
+  <div class="note-box">
+    <p>Con Tienda como contenedor se resuelve de una vez la duplicación: hoy Perfume, Tarjeta Regalo y Outlet aparecen en los menús de Mujer y de Hombre, y Outlet además arriba en rojo — tres veces. Perfume, Tarjeta Regalo y Buzos Pareja se agrupan en <b>Regalos</b>, que además crea una categoría de ticket alto que hoy no existe.</p>
+    <p>Outlet vuelve a teal. La X de cerrar del menú móvil también: hoy es un cuadro rojo, el único elemento de ese color en todo el sitio junto a Outlet. <span class="tag v-css">1 línea</span></p>
+    <p><b>Escritorio:</b> el desplegable tapa hoy la barra de anuncios. Debe abrirse por debajo. <b>Móvil:</b> filas de 44 px mínimo.</p>
+  </div>
+
+  <h3>Footer</h3>
+  <div class="tblwrap"><table>
+    <tr><th style="width:22%">Columna</th><th style="width:78%">Contenido</th></tr>
+    <tr><td>Tienda</td><td>Mujer · Hombre · Colección del mes · Regalos · Outlet</td></tr>
+    <tr><td>Para Empresas</td><td>Qué hacemos · Cómo trabajamos · Casos · Cotizar</td></tr>
+    <tr><td>Ayuda</td><td>Cambios y devoluciones · Envíos · Guía de tallas · Estado de mi pedido · Contacto</td></tr>
+    <tr><td>Serranía</td><td>Nosotros · Nuestro taller · Términos · Manejo de datos</td></tr>
+    <tr><td>Suscripción</td><td>Correo, botón y redes. <b>Corregir:</b> el footer apunta a un Instagram distinto al del texto y el enlace de comunidad tiene <code>https://</code> duplicado.</td></tr>
+    <tr><td>Barra inferior</td><td>Razón social, NIT, Cajicá, © 2026 e íconos de medios de pago. Hoy dice 2022.</td></tr>
+  </table></div>
+  <div class="callout">
+    <p><strong>El footer actual tiene cuatro columnas y tres son casi idénticas:</strong> los mismos cinco enlaces repetidos. La primera se titula «Chaquetas Casuales Mujer», que no significa nada ahí. Aparece en todas las páginas del sitio.</p>
+    <p><b>Móvil:</b> las columnas se vuelven acordeones cerrados, con suscripción y redes siempre visibles. Hoy es una lista larguísima de enlaces repetidos.</p>
+  </div>
+</section>
+
+<!-- 10 ORDEN -->
+<section class="screen">
+  <div class="shead"><span class="snum">10</span><h2>Orden de ejecución</h2></div>
+  <p class="sdek">Montarlo todo a la vez significa que nada queda bien y que no se puede atribuir qué movió la aguja. Cada tanda va anotada en la bitácora con su fecha.</p>
+
+  <div class="tblwrap"><table>
+    <tr><th style="width:22%">Tanda</th><th style="width:13%">Esfuerzo</th><th style="width:65%">Qué incluye</th></tr>
+    <tr><td>0 · Google Ads</td><td>1 hora</td><td><b>Verificar que el formulario de empresas esté marcado como conversión en Google Ads.</b> Es lo de mayor impacto potencial del documento y no toca el sitio.</td></tr>
+    <tr><td>1 · Errores y fricción</td><td>2–3 días</td><td>Ocultar Fontanar, prensa duplicada, imagen de Facebook, carrusel repetido y sección vacía. Corregir enlaces, Instagram, copyright y cupón. Botón sólido en el hero. WhatsApp fuera del botón de compra. Quitar preselección de XS. Botón de compra en teal. Desactivar el contador de Nudgify. Barra de anuncios rotativa. 50 → 24 productos.</td></tr>
+    <tr><td>2 · Configurar lo instalado</td><td>3–5 días</td><td>Filtros en Búsqueda y descubrimiento. Revisar por qué la app de reseñas no muestra nada. Lanzar la encuesta de objeciones en Zigpoll. Primer conjunto en Paquetes.</td></tr>
+    <tr><td>3 · Tipografía</td><td>2–3 días</td><td>Aplicar la escala, quitar Playfair de las versalitas, un solo botón primario. Es el cambio que más va a mover la percepción de consistencia por unidad de esfuerzo.</td></tr>
+    <tr><td>4 · Navegación y footer</td><td>3–5 días</td><td>Tienda y Para Empresas como pares, crear Regalos, Outlet en teal, reconstruir el footer.</td></tr>
+    <tr><td>5 · Página Tienda</td><td>1 semana</td><td>El pilar que falta. Reutiliza logos, taller y promesas que ya existen en empresas.</td></tr>
+    <tr><td>6 · Home</td><td>1 semana</td><td>Hero de marca, las dos puertas, logos, colección del mes, taller, testimonios de ambas líneas.</td></tr>
+    <tr><td>7 · Ficha y colecciones</td><td>2–4 semanas</td><td>Depende de la fotografía nueva y de los resultados de Zigpoll. Es lo de mayor impacto y lo que más insumos necesita — por eso va al final, no por menos importante.</td></tr>
+  </table></div>
+
+  <div class="callout">
+    <p><strong>Dos cosas fuera de estos wireframes que siguen pendientes.</strong></p>
+    <p><b>La atribución de Meta.</b> Reporta ~$72 M en ventas y Shopify solo ve ~$37 M de tráfico social. Se cruza contando cuántos pedidos al mes se cierran por WhatsApp.</p>
+    <p><b>Separar Google orgánico de Google Ads.</b> La cifra de ~$28 M que veníamos llamando orgánica probablemente incluye pauta, ahora que sabemos que Google Ads aterriza en empresas. En Shopify Analytics se separa mirando <code>google / organic</code> frente a <code>google / cpc</code>.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <p>Wireframes estructurales, no diseño final: definen qué bloque va en qué orden, qué trabajo hace, con qué hook y con qué herramienta se construye. Todo se construye sobre Ella 5.0.9 y las apps ya instaladas, salvo la página de Para Empresas, que ya vive en PageFly.</p>
+</footer>
+
+</div>
+</body>
+</html>
